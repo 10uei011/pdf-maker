@@ -1,0 +1,35 @@
+{
+  "name": "pdf-maker",
+  "version": "0.0.1",
+  "description": "easy pdf generation using phantom.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/10uei011/pdf-maker.git"
+  },
+  "keywords": [
+    "node",
+    "node.js",
+    "javascript",
+    "npm",
+    "pdf",
+    "pdf-maker",
+    "phantom",
+    "phantom.js"
+  ],
+  "author": "dipesh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/10uei011/pdf-maker/issues"
+  },
+  "homepage": "https://github.com/10uei011/pdf-maker#readme",
+  "dependencies": {
+    "ejs": "^2.5.6",
+    "lodash": "^4.17.4",
+    "node-phantom-simple": "^2.2.4",
+    "phantomjs": "^2.1.7"
+  }
+}
