@@ -1,33 +1,36 @@
 # pdf-maker
 An easy way to generate pdf files from ejs templates or html files
 
-#Usage
 
-```
+##Install
+
+```js
 npm i --save pdf-maker
 ```
 
-#For generating pdf from ejs templates
+##Usage
 
-```
-    var pdfMaker = require('pdf-maker');
+##For generating pdf from ejs templates
 
-    var template = 'path/to/ejsTemplate.ejs';
-    var data = {
-        name: 'node.js'
+```js
+var pdfMaker = require('pdf-maker');
+
+var template = 'path/to/ejsTemplate.ejs';
+var data = {
+    name: 'node.js'
+};
+var pdfPath = '/path/of/pdf/file.pdf';
+var option = {
+    {
+        paperSize: {
+            format: 'A4',
+            orientation: 'portrait',
+            border: '1.8cm'
+        }
     };
-    var pdfPath = '/path/of/pdf/file.pdf';
-    var option = {
-        {
-            paperSize: {
-                format: 'A4',
-                orientation: 'portrait',
-                border: '1.8cm'
-            }
-        };
-    };
+};
 
-    pdfMaker(template, data, pdfPath, option);
+pdfMaker(template, data, pdfPath, option);
 ```
 
 Here, 'option' parameter is optional.
@@ -35,27 +38,27 @@ Here, 'option' parameter is optional.
 'pdfPath' is the path with where the pdf file will be saved.
 
 
-#For generating pdf from html files.
+##For generating pdf from html files.
 
-```
-    var pdfMaker = require('pdf-maker');
+```js
+var pdfMaker = require('pdf-maker');
 
-    var template = 'path/to/htmlFile.html';
-    var pdfPath = '/path/of/pdf/file.pdf';
-    var option = {
-        {
-            paperSize: {
-                format: 'A4',
-                orientation: 'portrait',
-                border: '1.8cm'
-            }
-        };
+var template = 'path/to/htmlFile.html';
+var pdfPath = '/path/of/pdf/file.pdf';
+var option = {
+    {
+        paperSize: {
+            format: 'A4',
+            orientation: 'portrait',
+            border: '1.8cm'
+        }
     };
+};
 
-    pdfMaker(template, pdfPath, option);
+pdfMaker(template, pdfPath, option);
 ```
 
-#Roadmap
+##Roadmap
 
 Adding test cases.
 Removing external dependencies.

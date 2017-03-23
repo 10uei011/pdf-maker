@@ -3,7 +3,7 @@ var phantomjs = require('phantomjs');
 var _ = require('lodash');
 var ejs = require('ejs');
 var fs = require('fs');
-
+var _session;
 
 function pdfMaker(template, data, pdfPath, option) {
 
@@ -25,7 +25,7 @@ function pdfMaker(template, data, pdfPath, option) {
                 throw err;
             }
 
-            generatePdf(html, pdfPath, option);
+            createSession(html, pdfPath, option);
 
         });
 
@@ -52,7 +52,7 @@ function pdfMaker(template, data, pdfPath, option) {
             }
 
             var html = ejs.render(file, data);
-            generatePdf(html, pdfPath, option);
+            createSession(html, pdfPath, option);
         });
 
     } else {
@@ -60,39 +60,48 @@ function pdfMaker(template, data, pdfPath, option) {
     }
 }
 
-function generatePdf(html, pdfPath, option) {
-    phantom.create({
-        path: phantomjs.path
-    }, function (err, session) {
-        if (err) {
-            throw err;
-        }
-
-        session.createPage(function (err, page) {
+function createSession(html, pdfPath, option) {
+    if (_session) {
+        createPage(_session, html, pdfPath, option);
+    } else {
+        phantom.create({
+            path: phantomjs.path
+        }, function (err, session) {
             if (err) {
                 throw err;
             }
 
-            _.forEach(option, function (val, key) {
-                page.set(key, val);
-            });
+            _session = session;
+            createPage(session, html, pdfPath, option)
+        });
+    }    
+}
 
-            page.set('content', html, function (err) {
-                if (err) {
+function createPage (session, html, pdfPath, option) {
+    session.createPage(function (err, page) {
+        if (err) {
+            throw err;
+        }
+
+        _.forEach(option, function (val, key) {
+            page.set(key, val);
+        });
+
+        page.set('content', html, function (err) {
+            if (err) {
+                throw err;
+            }
+        });
+
+        page.onLoadFinished = function (status) {
+            page.render(pdfPath, function (error) {
+                page.close();
+                page = null;
+                if (error) {
                     throw err;
                 }
             });
-
-            page.onLoadFinished = function (status) {
-                page.render(pdfPath, function (error) {
-                    page.close();
-                    page = null;
-                    if (error) {
-                        throw err;
-                    }
-                });
-            };
-        })
+        };
     });
 }
 
