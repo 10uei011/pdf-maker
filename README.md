@@ -58,6 +58,16 @@ var option = {
 pdfMaker(template, pdfPath, option);
 ```
 
+##For run the test.
+The test generates two pdf files using a sample template in html.
+Pdf-maker now supports async / await.
+To generate file1.pdf the test use async / await. The function wait for the pdf to be generated to print the elapsed time.
+
+To run the test:
+```js
+node test.js
+```
+
 ##Roadmap
 
 Adding test cases.
